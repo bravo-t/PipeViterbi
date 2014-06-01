@@ -1,25 +1,27 @@
-module BM_mem(data_id,
-			  BM_clk,
-			  BM_rst,
-		      BM_in,
-		      BM_out,
+module PM_mem(data_id,
+			  PM_clk,
+			  PM_rst,
+		      PM_in,
+		      pointer_in,
+		      PM_out,
+		      pointer_out,
 		      data_id_out);
-	input BM_clk,BM_rst;
+	input PM_clk,PM_rst;
 	input [3:0] data_id;
-	input [6:0] BM_in;
+	input [6:0] PM_in;
 	output [3:0] data_id_out;
-	output [6:0] BM_out;
+	output [6:0] PM_out;
 	reg [3:0] data_id_out;
-	reg [6:0] BM_out;
+	reg [6:0] PM_out;
 
-	always @(posedge BM_clk or negedge BM_rst) begin
-		if (!BM_rst) begin
-			BM_out <= 7'b0000000;
+	always @(posedge PM_clk or negedge PM_rst) begin
+		if (!PM_rst) begin
+			PM_out <= 7'b0000000;
 			data_id_out <= 4'b0000;
 		end
 		else
 		begin
-			BM_out <=BM_in;
+			PM_out <=PM_in;
 			data_id_out <= data_id;
 		end
 	end

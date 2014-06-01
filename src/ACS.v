@@ -1,14 +1,14 @@
 module ACS(self_state,
 		   data_recv,
-		   BMin1,
-		   BMin2,
-		   BMout);
+		   PMin1,
+		   PMin2,
+		   PMout);
 
 input [1:0] self_state,data_recv;
-input [6:0] BMin1,BMin2;
-output [6:0] BMout;
+input [6:0] PMin1,PMin2;
+output [6:0] PMout;
 
-wire [6:0] BM_cal_1,BM_cal_2;
+wire [6:0] PM_cal_1,PM_cal_2;
 wire [1:0] ham_dist_1,ham_dist_2;
 reg [1:0] path_id_1,path_id_2;
 
@@ -37,8 +37,8 @@ end
 ham_compute u_ham_com_1(.data_recv(data_recv),.path_id(path_id_1),.ham_dist(ham_dist_1));
 ham_compute u_ham_com_2(.data_recv(data_recv),.path_id(path_id_2),.ham_dist(ham_dist_2));
 
-assign BM_cal_1 = BMin1+ham_dist_1;
-assign BM_cal_2 = BMin2+ham_dist_2;
-assign BMout = (BM_cal_1>BM_cal_2)?BM_cal_2:BM_cal_1;
+assign PM_cal_1 = PMin1+ham_dist_1;
+assign PM_cal_2 = PMin2+ham_dist_2;
+assign PMout = (PM_cal_1>PM_cal_2)?PM_cal_2:PM_cal_1;
 
 endmodule
