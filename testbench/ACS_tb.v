@@ -87,12 +87,12 @@ module ACS_tb();
 			.self_state(self_state_test),
 			.data_recv(data_recv_test),
 			.addr_in_1(addr_in_1),
-			.addr_in_2(.addr_in_2),
+			.addr_in_2(addr_in_2),
 			.PMin1(PM_1_test),
 			.PMin2(PM_2_test),
 			.PMout(PM_out_test),
 			.addr_out(addr_out),
-			.data_rdy(.data_ready),
-			.dec_out(.dec_bit));
+			.data_rdy(data_ready),
+			.dec_out(dec_bit));
 
 endmodule
