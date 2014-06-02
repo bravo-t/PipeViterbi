@@ -3,7 +3,7 @@ module ACS_tb();
 	reg [1:0] data_recv_test,self_state_test;
 	reg input_signal;
 	reg [1:0] addr_in_1,addr_in_2;
-	wire dec_bit;
+	wire dec_bit,data_ready;
 	wire [6:0] PM_out_test;
 	wire [1:0] addr_out;
 
@@ -11,7 +11,7 @@ module ACS_tb();
 	begin
 		$dumpfile("ACS.vcd");
 		$dumpvars;
-		$monitor("%g  %b %b %b %d %b %d %b %d %b %b %b",$time,self_state_test,data_recv_test,PM_1_test,PM_1_test,PM_2_test,PM_2_test,PM_out_test,PM_out_test,data_rdy,addr_out,dec_bit);
+		$monitor("%g  %b %b %b %d %b %d %b %d %b %b %b",$time,self_state_test,data_recv_test,PM_1_test,PM_1_test,PM_2_test,PM_2_test,PM_out_test,PM_out_test,data_ready,addr_out,dec_bit);
 		addr_in_1=2'b00;
 		addr_in_2=2'b11;
 		input_signal=0;

@@ -19,10 +19,10 @@ module ACS(self_state,
 
 	reg [6:0] PM_cal_1,PM_cal_2;
 	reg [6:0] PMout;
-	reg [1:0] ham_dist_1,ham_dist_2;
+	wire [1:0] ham_dist_1,ham_dist_2;
 	reg [1:0] path_id_1,path_id_2;
 	reg [1:0] addr_out;
-	reg dec_out;
+	reg dec_out,data_rdy;
 
 
 	always @(*)
