@@ -1,11 +1,58 @@
 module PipeViterbi_tb();
 
+	wire w_clk,w_clk_div;
+	reg rst;
+
+	wire [7:0] w_test_data,w_data_dec;
+	wire [15:0] w_enc;
+
 	
+	clk_gen u_clk_gen(.clk(w_clk));
+
+	clk_div u_clk_div(.clk(w_clk),
+			   .rst(rst),
+			   .clk_div(w_clk_div));
+
+	Cov_gen u_Cov_gen(.clk(w_clk),
+			   .rst(rst),
+			   .test_data(w_test_data),
+			   .para_out(w_enc));
+
+	PipeViterbi u_PipeViterbi(.clk(w_clk_div),
+				   .rst(rst),
+				   .data_rcv(w_enc),
+				   .data_dec(w_data_dec)); 
 endmodule
 
 module Cov_gen(clk,
 			   rst,
-			   )
+			   test_data,
+			   para_out);
+
+	input clk,rst;
+
+	output [7:0] test_data;
+	output [15:0] para_out;
+
+	wire w_sierial;
+	wire [1:0] w_enc_bit;
+
+	sierial_gen u_sierial_gen(.clk(clk),
+				   			  .rst(rst),
+				   			  .data_gen(test_data),
+				   			  .sierial_out(w_sierial));
+
+	vitenc_fsm u_vitenc_fsm(.clk(clk),
+							.datain(w_sierial),
+							.vitenc(w_enc_bit));
+
+	enc_paralleler u_enc_paralleler(.clk(clk),
+					  				.rst(rst),
+					  				.data_in(w_enc_bit),
+					  				.para_out(para_out));
+
+endmodule
+
 
 module sierial_gen(clk,
 				   rst,
