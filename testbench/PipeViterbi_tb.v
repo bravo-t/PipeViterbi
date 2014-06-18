@@ -3,9 +3,18 @@ module PipeViterbi_tb();
 	wire w_clk,w_clk_div;
 	reg rst;
 
+	//wire w_input_valid;
 	wire [7:0] w_test_data,w_data_dec;
 	wire [15:0] w_enc;
 
+	initial
+	begin
+		$dumpfile("PipeViterbi.vcd");
+		$dumpvars;
+		rst = 0;
+		#30 rst = 1;
+		#500 $finish;
+	end
 	
 	clk_gen u_clk_gen(.clk(w_clk));
 
@@ -20,8 +29,10 @@ module PipeViterbi_tb();
 
 	PipeViterbi u_PipeViterbi(.clk(w_clk_div),
 				   .rst(rst),
-				   .data_rcv(w_enc),
+				   .input_valid(1'b1);
+				   .data_recv(w_enc),
 				   .data_dec(w_data_dec)); 
+
 endmodule
 
 module Cov_gen(clk,
@@ -148,6 +159,7 @@ module enc_paralleler(clk,
 					para_out[15:0] <= shifter[15:0];
 				end
 			endcase
+			counter = counter + 1'b1;
 		end
 	end
 
