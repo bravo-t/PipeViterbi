@@ -2,7 +2,7 @@
 module PipeViterbi(clk,
 				   rst,
 				   input_valid,
-				   data_rcv,
+				   data_recv,
 				   data_dec); 
 
 	input clk,rst,input_valid;
@@ -39,7 +39,7 @@ module PipeViterbi(clk,
 
 	input_shifter u_input_shifter(.clk(clk),
 				  				  .rst(rst),
-				  				  .data_recv(data_rcv),
+				  				  .data_recv(data_recv),
 				  				  .enc_bit_1(w_enc_bit_1),
 				  				  .enc_bit_2(w_enc_bit_2),
 				  				  .enc_bit_3(w_enc_bit_3),
