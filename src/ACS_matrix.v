@@ -30,8 +30,8 @@ module ACS_matrix(clk,
 	output [6:0] PM_8_1,PM_8_2,PM_8_3,PM_8_4;
 	output [14:0] bus_sig_1,bus_sig_2,bus_sig_3,bus_sig_4,bus_sig_5,bus_sig_6,bus_sig_7,bus_sig_8;
 
-	reg [1:0] addr_init_1,addr_init_2,addr_init_3,addr_init_4;
-	reg [6:0] PM_init;
+	//reg [1:0] addr_init_1,addr_init_2,addr_init_3,addr_init_4;
+	//reg [6:0] PM_init;
 
 	wire dec_out_1_1,dec_out_1_2,dec_out_1_3,dec_out_1_4,
 		 dec_out_2_1,dec_out_2_2,dec_out_2_3,dec_out_2_4,
@@ -63,35 +63,35 @@ module ACS_matrix(clk,
 			   PM_7_to_8_1,PM_7_to_8_2,PM_7_to_8_3,PM_7_to_8_4;
 
 
-	always @(*) begin
-		addr_init_1 = 2'b00;
-		addr_init_2 = 2'b01;
-		addr_init_3 = 2'b10;
-		addr_init_4 = 2'b11;
-		PM_init = 7'b0000000;
-	end
+	//always begin
+	//	addr_init_1 = 2'b00;
+	//	addr_init_2 = 2'b01;
+	//	addr_init_3 = 2'b10;
+	//	addr_init_4 = 2'b11;
+	//	PM_init = 7'b0000000;
+	//end
 
 	ACS_col u_ACS_col_1(.clk(clk),
 			   .rst(rst),
 			   .data_id(data_id),
 			   .input_valid(input_valid),
 			   .data_recv(data_recv_1),
-			   .PM_in_1_1(PM_init),
-			   .PM_in_1_2(PM_init),
-			   .PM_in_2_1(PM_init),
-			   .PM_in_2_2(PM_init),
-			   .PM_in_3_1(PM_init),
-			   .PM_in_3_2(PM_init),
-			   .PM_in_4_1(PM_init),
-			   .PM_in_4_2(PM_init),
-			   .addr_in_1_1(addr_init_1),
-			   .addr_in_1_2(addr_init_1),
-			   .addr_in_2_1(addr_init_2),
-			   .addr_in_2_2(addr_init_2),
-			   .addr_in_3_1(addr_init_3),
-			   .addr_in_3_2(addr_init_3),
-			   .addr_in_4_1(addr_init_4),
-			   .addr_in_4_2(addr_init_4),
+			   .PM_in_1_1(7'b0000000),
+			   .PM_in_1_2(7'b0000000),
+			   .PM_in_2_1(7'b0000000),
+			   .PM_in_2_2(7'b0000000),
+			   .PM_in_3_1(7'b0000000),
+			   .PM_in_3_2(7'b0000000),
+			   .PM_in_4_1(7'b0000000),
+			   .PM_in_4_2(7'b0000000),
+			   .addr_in_1_1(2'b00),
+			   .addr_in_1_2(2'b00),
+			   .addr_in_2_1(2'b01),
+			   .addr_in_2_2(2'b01),
+			   .addr_in_3_1(2'b10),
+			   .addr_in_3_2(2'b10),
+			   .addr_in_4_1(2'b11),
+			   .addr_in_4_2(2'b11),
 			   .addr_out_1(addr_1_to_2_1),
 			   .addr_out_2(addr_1_to_2_2),
 			   .addr_out_3(addr_1_to_2_3),
@@ -457,19 +457,19 @@ module ACS_col(clk,
 	output [2:0] data_id_out;
 	output [6:0] PM_out_1,PM_out_2,PM_out_3,PM_out_4;
 
-	reg[1:0] self_state_1,self_state_2,self_state_3,self_state_4;
+	//reg[1:0] self_state_1,self_state_2,self_state_3,self_state_4;
 
-	always @(*) begin
-		self_state_1 = 2'b00;
-		self_state_2 = 2'b01;
-		self_state_3 = 2'b10;
-		self_state_4 = 2'b11;
-	end
+	//always begin
+	//	self_state_1 = 2'b00;
+	//	self_state_2 = 2'b01;
+	//	self_state_3 = 2'b10;
+	//	self_state_4 = 2'b11;
+	//end
 
 	ACS_module u_ACS_module_1(.clk(clk),
 				  .rst(rst),
 				  .data_id(data_id),
-				  .self_state(self_state_1),
+				  .self_state(2'b00),
 				  .PM_in_1(PM_in_1_1),
 				  .PM_in_2(PM_in_1_2),
 				  .addr_in_1(addr_in_1_1),
@@ -485,7 +485,7 @@ module ACS_col(clk,
 	ACS_module u_ACS_module_2(.clk(clk),
 				  .rst(rst),
 				  .data_id(data_id),
-				  .self_state(self_state_2),
+				  .self_state(2'b01),
 				  .PM_in_1(PM_in_2_1),
 				  .PM_in_2(PM_in_2_2),
 				  .addr_in_1(addr_in_2_1),
@@ -501,7 +501,7 @@ module ACS_col(clk,
 	ACS_module u_ACS_module_3(.clk(clk),
 				  .rst(rst),
 				  .data_id(data_id),
-				  .self_state(self_state_3),
+				  .self_state(2'b10),
 				  .PM_in_1(PM_in_3_1),
 				  .PM_in_2(PM_in_3_2),
 				  .addr_in_1(addr_in_3_1),
@@ -517,7 +517,7 @@ module ACS_col(clk,
 	ACS_module u_ACS_module_4(.clk(clk),
 				  .rst(rst),
 				  .data_id(data_id),
-				  .self_state(self_state_4),
+				  .self_state(2'b11),
 				  .PM_in_1(PM_in_4_1),
 				  .PM_in_2(PM_in_4_2),
 				  .addr_in_1(addr_in_4_1),
