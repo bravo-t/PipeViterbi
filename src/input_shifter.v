@@ -113,7 +113,7 @@ module input_fifo(clk,
 			data_out_8 <= 16'b0000000000000000;
     	end
     	else begin
-    		counter = counter + 1'b1;
+    		counter <= counter + 1'b1;
     		case(counter)
     			3'b000:data_out_1 <= data_rcv;
     			3'b001:data_out_2 <= data_rcv;
