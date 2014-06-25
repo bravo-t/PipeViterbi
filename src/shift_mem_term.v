@@ -232,7 +232,7 @@ module shift_reg(clk,
 		end
 		else
 		begin
-			if (term_in) begin
+			if (!term_in) begin
 				data_out[0] <= data_in;
 				data_out[1] <= data_out[0];
 				data_out[2] <= data_out[1];
