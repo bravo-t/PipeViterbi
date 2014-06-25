@@ -80,6 +80,8 @@ module ACS(self_state,
 				term_cal_2 = PMin2+ham_dist_1;
 				if(term_cal_1<PM_cal_1 &&term_cal_2<PM_cal_2)
 					term_out = 1;
+				else
+					term_out = 0;
 			end
 			2'b01:begin
 				PMout = PMin2 + ham_dist_2;
