@@ -12,15 +12,15 @@ module PM_mem(data_id,
 //		      data_rdy,
 		      dec_out,
 		      data_id_out);
-	input PM_clk,PM_rst,dec_in,data_en;
+	input PM_clk,PM_rst,dec_in,term_in;
 	input [1:0] addr_in;
 	input [2:0] data_id;
 	input [6:0] PM_in;
-	output dec_out,data_rdy;
+	output dec_out,term_out;
 	output [1:0] addr_out;
 	output [2:0] data_id_out;
 	output [6:0] PM_out;
-	reg dec_out,data_rdy;
+	reg dec_out,term_out;
 	reg [1:0] addr_out;
 	reg [2:0] data_id_out;
 	reg [6:0] PM_out;
@@ -28,7 +28,6 @@ module PM_mem(data_id,
 	always @(posedge PM_clk or negedge PM_rst) begin
 		if (!PM_rst) begin
 			dec_out <= 1'b0;
-			data_rdy <= 1'b0;
 			addr_out <= 2'b00;
 			PM_out <= 7'b0000000;
 			data_id_out <= 3'b000;
@@ -37,7 +36,6 @@ module PM_mem(data_id,
 		else
 		begin
 			dec_out <= dec_in;
-			data_rdy <= data_en;
 			addr_out <= addr_in;
 			PM_out <=PM_in;
 			data_id_out <= data_id;
