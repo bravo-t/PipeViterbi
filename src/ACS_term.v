@@ -22,6 +22,7 @@ module ACS(self_state,
 	output [6:0] PMout;
 
 	reg [6:0] PM_cal_1,PM_cal_2;
+	reg [6:0] term_cal_1,term_cal_2;
 	reg [6:0] PMout;
 	wire [1:0] ham_dist_1,ham_dist_2;
 	reg [1:0] path_id_1,path_id_2;
@@ -55,7 +56,6 @@ module ACS(self_state,
 		endcase
 		case({term_2,term_1})
 			2'b00:begin
-				term_out = 0;
 				PM_cal_1 = PMin1+ham_dist_1;
 				PM_cal_2 = PMin2+ham_dist_2;
 				if(PM_cal_1<PM_cal_2) begin
@@ -76,20 +76,25 @@ module ACS(self_state,
 						addr_out = addr_in_2;
 					end
 				end
+				term_cal_1 = PMin1+ham_dist_2;
+				term_cal_2 = PMin2+ham_dist_1;
+				if(term_cal_1<PM_cal_1 &&term_cal_2<PM_cal_2)
+					term_out = 1;
 			end
 			2'b01:begin
-				term_out = 0;
 				PMout = PMin2 + ham_dist_2;
+				term_out = 0;
 			end
 			2'b10:begin
-				term_out = 0;
 				PMout = PMin1 + ham_dist_1;
+				term_out = 0;
 			end
 			2'b11:begin
 				term_out = 1;
 				PMout = 7'bxxxxxxx;
 			end
 		endcase
+
 	end
 
 	ham_compute u_ham_com_1(.data_recv(data_recv),.path_id(path_id_1),.ham_dist(ham_dist_1));
