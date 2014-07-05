@@ -29,7 +29,7 @@ module PipeViterbi_tb();
 
 	PipeViterbi u_PipeViterbi(.clk(w_clk_div),
 				   .rst(rst),
-				   .input_valid(1'b1);
+				   .input_valid(1'b1),
 				   .data_recv(w_enc),
 				   .data_dec(w_data_dec)); 
 
