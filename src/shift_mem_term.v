@@ -14,7 +14,9 @@ module shift_mem(clk,
 	input [18:0] bus_sig_1,bus_sig_2,bus_sig_3,bus_sig_4,bus_sig_5,bus_sig_6,bus_sig_7,bus_sig_8;
 	output [31:0] data_out;
 
-	reg [11:0] addr_dec_1,addr_dec_2,addr_dec_3,addr_dec_4,addr_dec_5,addr_dec_6,addr_dec_7,addr_dec_8;
+	reg [15:0] addr_dec_1,addr_dec_2,addr_dec_3,addr_dec_4,addr_dec_5,addr_dec_6,addr_dec_7,addr_dec_8;
+	// something is WRONG here!!!
+	// the addr_dec_n registers do NOT have outputs!!!
 
 	wire [31:0] data_out_1,data_out_2,data_out_3,data_out_4,data_out_5,data_out_6,data_out_7,data_out_8;
 
@@ -104,35 +106,35 @@ module shift_mem(clk,
 
 	shift_mem_col u_shift_mem_col_1(.clk(clk),
 									.rst(rst),
-									.addr_dec_sig(bus_sig_1[15:0]),
+									.addr_dec_sig(addr_dec_1),
 									.data_out(data_out_1));
 	shift_mem_col u_shift_mem_col_2(.clk(clk),
 									.rst(rst),
-									.addr_dec_sig(bus_sig_2[15:0]),
+									.addr_dec_sig(addr_dec_2),
 									.data_out(data_out_2));
 	shift_mem_col u_shift_mem_col_3(.clk(clk),
 									.rst(rst),
-									.addr_dec_sig(bus_sig_3[15:0]),
+									.addr_dec_sig(addr_dec_3),
 									.data_out(data_out_3));
 	shift_mem_col u_shift_mem_col_4(.clk(clk),
 									.rst(rst),
-									.addr_dec_sig(bus_sig_4[15:0]),
+									.addr_dec_sig(addr_dec_4),
 									.data_out(data_out_4));
 	shift_mem_col u_shift_mem_col_5(.clk(clk),
 									.rst(rst),
-									.addr_dec_sig(bus_sig_5[15:0]),
+									.addr_dec_sig(addr_dec_5),
 									.data_out(data_out_5));
 	shift_mem_col u_shift_mem_col_6(.clk(clk),
 									.rst(rst),
-									.addr_dec_sig(bus_sig_6[15:0]),
+									.addr_dec_sig(addr_dec_6),
 									.data_out(data_out_6));
 	shift_mem_col u_shift_mem_col_7(.clk(clk),
 									.rst(rst),
-									.addr_dec_sig(bus_sig_7[15:0]),
+									.addr_dec_sig(addr_dec_7),
 									.data_out(data_out_7));
 	shift_mem_col u_shift_mem_col_8(.clk(clk),
 									.rst(rst),
-									.addr_dec_sig(bus_sig_8[15:0]),
+									.addr_dec_sig(addr_dec_8),
 									.data_out(data_out_8));
 
 	out_sel_unit u_out_sel_unit(.clk(clk),
