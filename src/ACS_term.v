@@ -86,14 +86,17 @@ module ACS(self_state,
 			2'b01:begin
 				PMout = PMin2 + ham_dist_2;
 				term_out = 0;
+				addr_out = addr_in_2;
 			end
 			2'b10:begin
 				PMout = PMin1 + ham_dist_1;
 				term_out = 0;
+				addr_out = addr_in_1;
 			end
 			2'b11:begin
 				term_out = 1;
 				PMout = 7'bxxxxxxx;
+				addr_out = 2'bxx;
 			end
 		endcase
 
