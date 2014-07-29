@@ -267,15 +267,15 @@ module out_sel_unit(clk,
 	reg [2:0] counter;
 	reg [31:0] data_out;
 
-	always @(posedge clk or negedge rst) begin
+	always @(clk or !rst) begin
 		if (!rst) 
 		begin
 			// reset
-			counter <= 3'b000;
+			counter = 3'b000;
 		end
 		else 
 		begin
-			counter <= counter + 1'b1;
+			counter = counter + 1'b1;
 		end
 	end
 
