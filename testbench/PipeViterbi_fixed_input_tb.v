@@ -19,7 +19,6 @@ module test();
 
 PipeViterbi u_PipeViterbi(.clk(clk),
 				   .rst(rst),
-				   //.input_valid(1'b1);
 				   .data_recv(16'b1101100100111100),
 				   .data_dec(data_dec));
 
