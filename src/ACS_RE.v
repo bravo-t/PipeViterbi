@@ -105,7 +105,7 @@ module ACS(self_state,
 		end
 	end
 
-	assign PMout = select ? PMin2 : PMin1;
+	assign PMout = select ? PM_cal_2 : PM_cal_1;
 
 	ham_compute u_ham_com_1(.data_recv(data_recv),.path_id(path_id_1),.ham_dist(ham_dist_1));
 	ham_compute u_ham_com_2(.data_recv(data_recv),.path_id(path_id_2),.ham_dist(ham_dist_2));
@@ -124,7 +124,7 @@ module app_men(dec_in,
 
 	reg [7:0] data_append;
 
-	always @(*) begin
+	always @(select_in or data_in_1[7:0] or data_in_2[7:0] or dec_in) begin
 		if (select_in == 0) begin
 			data_append[7] = data_in_1[6];
 			data_append[6] = data_in_1[5];
