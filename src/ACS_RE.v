@@ -54,7 +54,7 @@ module ACS(self_state,
 
 	input [1:0] self_state,data_recv;
 	input [6:0] PMin1,PMin2;
-	output dec_out;
+	output dec_out,select;
 	output [6:0] PMout;
 
 	reg [6:0] PM_cal_1,PM_cal_2;
@@ -125,7 +125,7 @@ module app_men(dec_in,
 	reg [7:0] data_append;
 
 	always @(*) begin
-		if (select == 0) begin
+		if (select_in == 0) begin
 			data_append[7] = data_in_1[6];
 			data_append[6] = data_in_1[5];
 			data_append[5] = data_in_1[4];
@@ -171,6 +171,7 @@ module MEM(rst,
 			data_out <= 8'b0;
 		end
 		else
+		begin
 			PM_out <= PM_in;
 			data_out <= data_in;
 		end
