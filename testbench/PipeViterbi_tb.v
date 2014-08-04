@@ -52,7 +52,8 @@ module Cov_gen(clk,
 				   			  .data_gen(test_data),
 				   			  .sierial_out(w_sierial));
 
-	vitenc_fsm u_vitenc_fsm(.clk(clk),
+	vitenc_fsm u_vitenc_fsm(.rst(rst),
+							.clk(clk),
 							.datain(w_sierial),
 							.vitenc(w_enc_bit));
 
@@ -190,10 +191,10 @@ module clk_div(clk,
 			counter <= 3'b000;
 		end
 		else begin
-			counter = counter + 1;
+			counter <= counter + 1;
 		end
 	end
 
-	assign clk_div = (counter == 3'b111);
+	assign clk_div = counter[2];
 
 endmodule
