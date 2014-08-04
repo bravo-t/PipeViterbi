@@ -13,18 +13,18 @@ module vitenc_fsm(/*autoport*/
 			vitenc,
 //input
 			datain,
-			clk);
+			clk,
+			rst);
 	input datain;
-	input clk;
+	input clk,rst;
 	output [1:0]vitenc;
 	reg [1:0]vitenc;
 	reg [1:0]state;
-	initial
-	begin
-		state=2'b00;
-		vitenc=2'b00;
-	end
-	always @(posedge clk ) begin
+	always @(posedge clk or negedge rst) begin
+		if(!rst) begin
+			state<=2'b00;
+			vitenc<=2'b00;
+		end
 		case(state)
 		2'b00:
 		begin
