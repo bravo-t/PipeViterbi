@@ -1,7 +1,6 @@
 // Top module
 module PipeViterbi(clk,
 				   rst,
-				   input_valid,
 				   data_recv,
 				   data_dec); 
 
