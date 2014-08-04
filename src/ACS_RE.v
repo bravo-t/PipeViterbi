@@ -166,8 +166,8 @@ module MEM(rst,
 	reg [6:0] PM_out;
 	reg [7:0] data_out;
 
-	always @(posedge clk or posedge rst) begin
-		if (rst) begin
+	always @(posedge clk or negedge rst) begin
+		if (!rst) begin
 			// reset
 			PM_out <= 7'b0;
 			data_out <= 8'b0;
