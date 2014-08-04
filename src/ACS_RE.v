@@ -30,7 +30,7 @@ module ACS_mem(rst,
 
 	app_men u_app_mem(.dec_in(w_dec_out),
 			   		  .data_in_1(data_in_1),
-			   		  .data_in_2(data_in_1),
+			   		  .data_in_2(data_in_2),
 			   		  .select_in(w_select),
 			   		  .data_out(w_data_out));
 
@@ -145,6 +145,8 @@ module app_men(dec_in,
 		end
 		data_append[0] = dec_in;
 	end
+
+	assign data_out = data_append;
 
 endmodule
 
