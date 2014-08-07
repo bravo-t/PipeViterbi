@@ -174,8 +174,36 @@ module MEM(rst,
 		end
 		else
 		begin
-			PM_out <= PM_in;
-			data_out <= data_in;
+			if(PM_out[6] != PM_in[6])
+				PM_out[6] <= PM_in[6];
+			if(PM_out[5] != PM_in[5])
+				PM_out[5] <= PM_in[5];
+			if(PM_out[4] != PM_in[4])
+				PM_out[4] <= PM_in[4];
+			if(PM_out[3] != PM_in[3])
+				PM_out[3] <= PM_in[3];
+			if(PM_out[2] != PM_in[2])
+				PM_out[2] <= PM_in[2];
+			if(PM_out[1] != PM_in[1])
+				PM_out[1] <= PM_in[1];
+			if(PM_out[0] != PM_in[0])
+				PM_out[0] <= PM_in[0];
+			if(data_out[7] != data_in[7])
+				data_out[7] <= data_in[7];
+			if(data_out[6] != data_in[6])
+				data_out[6] <= data_in[6];
+			if(data_out[5] != data_in[5])
+				data_out[5] <= data_in[5];
+			if(data_out[4] != data_in[4])
+				data_out[4] <= data_in[4];
+			if(data_out[3] != data_in[3])
+				data_out[3] <= data_in[3];
+			if(data_out[2] != data_in[2])
+				data_out[2] <= data_in[2];
+			if(data_out[1] != data_in[1])
+				data_out[1] <= data_in[1];
+			if(data_out[0] != data_in[0])
+				data_out[0] <= data_in[0];
 		end
 	end
 
