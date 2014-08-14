@@ -4,7 +4,7 @@ module PipeViterbi(clk,
 				   data_recv,
 				   data_dec); 
 
-	input clk,rst,input_valid;
+	input clk,rst;
 	input [15:0] data_recv;
 
 	output [7:0] data_dec;
