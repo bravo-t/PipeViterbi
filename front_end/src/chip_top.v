@@ -60,7 +60,7 @@ module chip(clk_PAD,
 	PCORNERG_18 cornerul();
 	PCORNERG_18 cornerru();
 
-	PipeViterbi(.clk(io_clk),.rst(.io_rst),.data_recv(io_data_recv),.data_dec(io_data_dec)); 
+	PipeViterbi decoder(.clk(io_clk),.rst(io_rst),.data_recv(io_data_recv),.data_dec(io_data_dec)); 
 
 
 
@@ -101,42 +101,6 @@ end
   pmos   (MG, PAD_q, 1'b0);
   pmos   (MG, PAD_i, 1'b0);
   pmos   (PAD, MG, 1'b0);
-  always @(PAD) lastPAD=PAD;
-  always @(PAD or PU or PD) begin
-    if (PAD === 1'bx && !$test$plusargs("bus_conflict_off") && $countdrivers(PAD))
-       $display("ERROR : %t ++BUS CONFLICT++ : %m", $realtime);
-    if (PAD === 1'bz || (PAD === 1'b1) || (PAD === 1'b0)) begin
-         if (PU) begin
-            if (lastPAD === 1'b1) 
-            begin
-              pull_uen=1; pull_den=0;
-            end
-            else begin
-              pull_uen <= #PullTime 1;
-              pull_den <= #PullTime 0;
-            end
-         end           
-         else pull_uen=0;
-         if (PD) begin
-            if (lastPAD === 1'b0) 
-            begin
-              pull_den=1; pull_uen=0;
-            end
-            else begin
-              pull_den <= #PullTime 1;
-              pull_uen <= #PullTime 0;
-            end
-         end
-         else pull_den=0;
-    end 
-  end
-   specify
-     if (DS == 1'b0) (I => PAD)=(0, 0);
-     if (DS == 1'b1) (I => PAD)=(0, 0);
-     (OEN => PAD)=(0, 0, 0, 0, 0, 0);
-     (PAD => C)=(0, 0);
-     (IE => C)=(0, 0);
-   endspecify
 
 endmodule
 
