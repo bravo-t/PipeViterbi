@@ -1,0 +1,30 @@
+ 
+****************************************
+Report : area
+Design : chip
+Version: H-2013.03-SP1
+Date   : Sat Aug 16 15:46:44 2014
+****************************************
+
+Library(s) Used:
+
+    typical (File: /PDK/TSMC.90/aci/sc-x/synopsys/typical.db)
+    tpdn90g18tc (File: /PDK/TSMC.90/fe_TSMCHOME_tpdn90g18_130a/digital/Front_End/timing_power/tpdn90g18_130a/tpdn90g18tc.db)
+
+Number of ports:                           26
+Number of nets:                          2691
+Number of cells:                         2512
+Number of combinational cells:           2006
+Number of sequential cells:               472
+Number of macros/black boxes:              26
+Number of buf/inv:                        521
+Number of references:                     204
+
+Combinational area:               9100.828981
+Buf/Inv area:                     1392.854438
+Noncombinational area:           10847.894399
+Macro/Black Box area:           194740.000000
+Net Interconnect area:      undefined  (No wire load specified)
+
+Total cell area:                214688.723380
+Total area:                 undefined
