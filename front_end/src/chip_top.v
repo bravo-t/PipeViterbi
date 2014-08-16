@@ -37,14 +37,14 @@ module chip(clk_PAD,
 	PDC0204CDG_18 PAD16 (.I(1'b0),.DS(1'b1),.OEN(1'b1),.PAD(data_recv_PAD[13]),.C(io_data_recv[13]),.PS(1'b0),.PE(1'b0),.IE(1'b1));
 	PDC0204CDG_18 PAD17 (.I(1'b0),.DS(1'b1),.OEN(1'b1),.PAD(data_recv_PAD[14]),.C(io_data_recv[14]),.PS(1'b0),.PE(1'b0),.IE(1'b1));
 	PDC0204CDG_18 PAD18 (.I(1'b0),.DS(1'b1),.OEN(1'b1),.PAD(data_recv_PAD[15]),.C(io_data_recv[15]),.PS(1'b0),.PE(1'b0),.IE(1'b1));
-	PDC0204CDG_18 PAD19 (.I(io_data_dec[0]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[0]),.C(1'b0),.PS(1'b0),.PE(1'b0),.IE(1'b0));
-	PDC0204CDG_18 PAD20 (.I(io_data_dec[1]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[1]),.C(1'b0),.PS(1'b0),.PE(1'b0),.IE(1'b0));
-	PDC0204CDG_18 PAD21 (.I(io_data_dec[2]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[2]),.C(1'b0),.PS(1'b0),.PE(1'b0),.IE(1'b0));
-	PDC0204CDG_18 PAD22 (.I(io_data_dec[3]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[3]),.C(1'b0),.PS(1'b0),.PE(1'b0),.IE(1'b0));
-	PDC0204CDG_18 PAD23 (.I(io_data_dec[4]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[4]),.C(1'b0),.PS(1'b0),.PE(1'b0),.IE(1'b0));
-	PDC0204CDG_18 PAD24 (.I(io_data_dec[5]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[5]),.C(1'b0),.PS(1'b0),.PE(1'b0),.IE(1'b0));
-	PDC0204CDG_18 PAD25 (.I(io_data_dec[6]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[6]),.C(1'b0),.PS(1'b0),.PE(1'b0),.IE(1'b0));
-	PDC0204CDG_18 PAD26 (.I(io_data_dec[7]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[7]),.C(1'b0),.PS(1'b0),.PE(1'b0),.IE(1'b0));
+	PDC0204CDG_18 PAD19 (.I(io_data_dec[0]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[0]),.C(),.PS(1'b0),.PE(1'b0),.IE(1'b0));
+	PDC0204CDG_18 PAD20 (.I(io_data_dec[1]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[1]),.C(),.PS(1'b0),.PE(1'b0),.IE(1'b0));
+	PDC0204CDG_18 PAD21 (.I(io_data_dec[2]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[2]),.C(),.PS(1'b0),.PE(1'b0),.IE(1'b0));
+	PDC0204CDG_18 PAD22 (.I(io_data_dec[3]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[3]),.C(),.PS(1'b0),.PE(1'b0),.IE(1'b0));
+	PDC0204CDG_18 PAD23 (.I(io_data_dec[4]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[4]),.C(),.PS(1'b0),.PE(1'b0),.IE(1'b0));
+	PDC0204CDG_18 PAD24 (.I(io_data_dec[5]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[5]),.C(),.PS(1'b0),.PE(1'b0),.IE(1'b0));
+	PDC0204CDG_18 PAD25 (.I(io_data_dec[6]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[6]),.C(),.PS(1'b0),.PE(1'b0),.IE(1'b0));
+	PDC0204CDG_18 PAD26 (.I(io_data_dec[7]),.DS(1'b1),.OEN(1'b0),.PAD(data_dec_PAD[7]),.C(),.PS(1'b0),.PE(1'b0),.IE(1'b0));
 
 	PVDD1CDG_18 VDD1();
 	PVDD1CDG_18 VDD2();
@@ -80,28 +80,6 @@ module PDC0204CDG_18 (I,DS,OEN,PAD,C,PS,PE,IE);
    input I,DS,OEN,PS,PE,IE;
    inout PAD;
    output C;
-   wire  MG;
-   parameter PullTime = 100000;
-   reg lastPAD, pull_uen, pull_den;
-initial begin
-  pull_uen = 0;
-  pull_den = 0;
-end
-  bufif1 (weak0, weak1)(PAD_i, 1'b1, pull_uen);
-  bufif1 (weak0, weak1)(PAD_i, 1'b0, pull_den); 
-  buf    (C, CO);
-  and    (CO, C_buf, IE);
-  nand   (PUEN, PS, PE);
-  not    (PU, PUEN);
-  not    (PSB, PS);
-  and    (PD, PE, PSB);
-  bufif0 (PAD_q, I, OEN);
-  pmos   (DS_tmp, DS, 1'b0);
-  pmos   (C_buf, PAD, 1'b0);
-  pmos   (MG, PAD_q, 1'b0);
-  pmos   (MG, PAD_i, 1'b0);
-  pmos   (PAD, MG, 1'b0);
-
 endmodule
 
 module PCORNERG_18();
