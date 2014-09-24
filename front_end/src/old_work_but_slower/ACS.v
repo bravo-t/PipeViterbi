@@ -18,25 +18,19 @@ module ACS_mem(rst,
 
 	wire w_select,w_dec_out;
 	wire [6:0] w_PM;
-	wire [7:0] w_data_out,w_data_1,w_data_2;
+	wire [7:0] w_data_out;
 
-	ACS u_ACS(.clk(clk),
-			  .rst(rst),
-			  .self_state(self_state),
+	ACS u_ACS(.self_state(self_state),
 			  .data_recv(data_recv),
 			  .PMin1(PM_in_1),
 			  .PMin2(PM_in_2),
-			  .data_in_1(data_in_1),
-			  .data_in_2(data_in_2),
 			  .PMout(w_PM),
 			  .select(w_select),
-			  .data_out_1(w_data_1),
-			  .data_out_2(w_data_2),
 			  .dec_out(w_dec_out));
 
 	app_men u_app_mem(.dec_in(w_dec_out),
-			   		  .data_in_1(w_data_1),
-			   		  .data_in_2(w_data_2),
+			   		  .data_in_1(data_in_1),
+			   		  .data_in_2(data_in_2),
 			   		  .select_in(w_select),
 			   		  .data_out(w_data_out));
 
@@ -49,30 +43,21 @@ module ACS_mem(rst,
 
 endmodule
 
-module ACS(clk,
-		   rst,
-		   self_state,
+module ACS(self_state,
 		   data_recv,
 		   PMin1,
 		   PMin2,
-		   data_in_1,
-		   data_in_2,
 		   PMout,
-		   data_out_1,
-		   data_out_2,
 		   select,		//PMout = select ? PMin2 : PMin1;
 		   dec_out);
 
-	input rst,clk;
+
 	input [1:0] self_state,data_recv;
 	input [6:0] PMin1,PMin2;
-	input [7:0] data_in_1,data_in_2;
 	output dec_out,select;
 	output [6:0] PMout;
-	output [7:0] data_out_1,data_out_2;
 
-	wire [6:0] PM_cal_1,PM_cal_2;
-	reg [7:0] data_out_1,data_out_2;
+	reg [6:0] PM_cal_1,PM_cal_2;
 	wire [1:0] ham_dist_1,ham_dist_2;
 	reg [1:0] path_id_1,path_id_2;
 	reg dec_out,select;
@@ -102,6 +87,8 @@ module ACS(clk,
 				dec_out=1;
 			end
 		endcase
+		PM_cal_1 = PMin1+ham_dist_1;
+		PM_cal_2 = PMin2+ham_dist_2;
 		if(PM_cal_1<PM_cal_2) begin
 			select = 0;
 		end
@@ -118,31 +105,10 @@ module ACS(clk,
 		end
 	end
 
-	always @(posedge clk or negedge rst) begin
-		if (!rst) begin
-			data_out_1 <= 8'b0;
-			data_out_2 <= 8'b0;
-		end
-		else begin
-			data_out_1 <= data_in_1;
-			data_out_2 <= data_in_2;
-		end
-	end
-
 	assign PMout = select ? PM_cal_2 : PM_cal_1;
 
-	PM_calc u_PM_calc_1(.clk(clk),
-						.rst(rst),
-			   			.PM_in(PMin1),
-			   			.data_recv(data_recv),
-			   			.path_id(path_id_1),
-			   			.PM_out(PM_cal_1));
-	PM_calc u_PM_calc_2(.clk(clk),
-						.rst(rst),
-			   			.PM_in(PMin2),
-			   			.data_recv(data_recv),
-			   			.path_id(path_id_2),
-			   			.PM_out(PM_cal_2));
+	ham_compute u_ham_com_1(.data_recv(data_recv),.path_id(path_id_1),.ham_dist(ham_dist_1));
+	ham_compute u_ham_com_2(.data_recv(data_recv),.path_id(path_id_2),.ham_dist(ham_dist_2));
 
 endmodule
 
